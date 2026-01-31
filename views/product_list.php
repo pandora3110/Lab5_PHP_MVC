@@ -1,28 +1,22 @@
 <style>
-    .product-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    .product-table th, .product-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-    .product-table th { background-color: #007bff; color: white; }
-    .product-table tr:nth-child(even) { background-color: #f2f2f2; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
 </style>
-
-<h3>Danh sách sản phẩm (Từ Database Lab 2)</h3>
-<table class="product-table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Tên sản phẩm</th>
-        <th>Giá</th>
-        <th>Mô tả</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($products as $item): ?>
+<h2>Danh sách sản phẩm</h2>
+<a href="?page=product-add">[+] Thêm mới</a>
+<table>
+    <tr><th>ID</th><th>Tên</th><th>Giá</th><th>Ảnh</th><th>Hành động</th></tr>
+    <?php foreach ($products as $p): ?>
         <tr>
-            <td><?php echo $item['id']; ?></td>
-            <td><?php echo $item['name']; ?></td>
-            <td><?php echo number_format($item['price'], 0, ',', '.'); ?>đ</td>
-            <td><?php echo $item['description'] ?? 'Chưa có mô tả'; ?></td>
+            <td><?= $p['id'] ?></td>
+            <td><?= $p['name'] ?></td>
+            <td><?= number_format($p['price']) ?>đ</td>
+            <td><img src="<?= $p['image'] ?>" width="50"></td>
+            <td>
+                <a href="?page=product-detail&id=<?= $p['id'] ?>">Xem</a> |
+                <a href="?page=product-edit&id=<?= $p['id'] ?>">Sửa</a> |
+                <a href="?page=product-delete&id=<?= $p['id'] ?>" onclick="return confirm('Xóa?')">Xóa</a>
+            </td>
         </tr>
     <?php endforeach; ?>
-    </tbody>
 </table>

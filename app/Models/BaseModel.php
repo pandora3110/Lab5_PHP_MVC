@@ -4,19 +4,19 @@ use PDO;
 use PDOException;
 
 class BaseModel {
-    protected $db;
+    protected $pdo;
 
     public function __construct() {
         $host = 'localhost';
-        $dbname = 'lab2_db'; // Thay tên DB của Lab 2 vào đây
-        $username = 'root';
-        $password = '';
+        $db   = 'lab2_db'; // Tên database bạn vừa tạo ở Bước 1
+        $user = 'root';    // Mặc định của XAMPP là root
+        $pass = '';        // Mặc định của XAMPP là trống
 
         try {
-            $this->db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die("Lỗi kết nối: " . $e->getMessage());
+            die("Lỗi kết nối database: " . $e->getMessage());
         }
     }
 }
